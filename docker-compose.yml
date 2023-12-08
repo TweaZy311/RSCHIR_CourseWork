@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  server:
+    build: ./practice5
+    ports:
+      - "8090:8090"
+    restart: on-failure
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    container_name: db-project
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: DB_Project
+    ports:
+      - "5433:5432"
+
+  auth:
+    build: ./Auth
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
